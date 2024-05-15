@@ -1,5 +1,6 @@
 import { HumanMessage } from '@langchain/core/messages';
 import { ChatGoogleGenerativeAI } from '@langchain/google-genai';
+import { marked } from 'marked';
 
 // 🔥 SET `GOOGLE_API_KEY` IN YOUR .env FILE! 🔥
 // 🔥 GET YOUR GEMINI API KEY AT 🔥
@@ -47,10 +48,20 @@ function updateSuggestedPrompts(character) {
 
 updateSuggestedPrompts(selectedCharacter);
 
+// Display the welcome message when the page loads
+displayMessage('system', 'Welcome to the School of the Ancients! Choose a historical figure and ask them a question.');
+
+// Add event listeners after the welcome message is displayed
 imageChoices.forEach(choice => {
   choice.addEventListener('change', () => {
     selectedCharacter = choice.value;
     updateSuggestedPrompts(selectedCharacter);
+
+    // Clear the chat box
+    chatBox.innerHTML = ''; 
+
+    // Display welcome message again
+    displayMessage('system', 'Welcome to the School of the Ancients! Choose a historical figure and ask them a question.');
   });
 });
 
@@ -80,9 +91,12 @@ async function sendMessage() {
 }
 
 async function generateResponse(historicalFigure, userMessage) {
-  const prompt = `Imagine you are ${historicalFigure}. 
-  Respond to the following question in a way that is consistent 
-  with ${historicalFigure}'s personality and knowledge: ${userMessage}`;
+  const prompt = `You are ${historicalFigure}, a renowned ${getHistoricalFigureDescription(historicalFigure)}, living in the ${getHistoricalFigureTimeframe(historicalFigure)}. You are in a school where people can ask historical figures questions.  Respond to the following question in a tone that is both insightful and approachable, like you would explain complex concepts to a curious student.  Use language that reflects your ${getHistoricalFigureExpertise(historicalFigure)} and your passion for ${getHistoricalFigurePassion(historicalFigure)}. Feel free to use Markdown to format your responses, including bold text, italics, and bullet points, to help illustrate your points. Strive for detailed and insightful answers, but keep them concise when possible. 
+
+For example, if someone asked, "What is the theory of relativity?", you might answer:
+"The theory of relativity is a fundamental concept in modern physics... [continue with your explanation in Einstein's voice]".
+
+Now, respond to this question: ${userMessage}`;
 
   const vision = new ChatGoogleGenerativeAI({
     modelName: 'gemini-pro', 
@@ -93,15 +107,58 @@ async function generateResponse(historicalFigure, userMessage) {
   return response.content; 
 }
 
+function getHistoricalFigureDescription(historicalFigure) {
+  switch (historicalFigure) {
+    case 'Albert Einstein': return 'physicist';
+    case 'Galileo Galilei': return 'astronomer and physicist';
+    case 'Leonardo Da Vinci': return 'artist, inventor, and scientist';
+    default: return 'historical figure';
+  }
+}
+
+function getHistoricalFigureTimeframe(historicalFigure) {
+  switch (historicalFigure) {
+    case 'Albert Einstein': return 'early 20th century';
+    case 'Galileo Galilei': return '16th and 17th centuries';
+    case 'Leonardo Da Vinci': return '15th and 16th centuries';
+    default: return 'historical period';
+  }
+}
+
+function getHistoricalFigureExpertise(historicalFigure) {
+  switch (historicalFigure) {
+    case 'Albert Einstein': return 'scientific background';
+    case 'Galileo Galilei': return 'astronomical and scientific knowledge';
+    case 'Leonardo Da Vinci': return 'artistic, scientific, and engineering skills';
+    default: return 'expertise';
+  }
+}
+
+function getHistoricalFigurePassion(historicalFigure) {
+  switch (historicalFigure) {
+    case 'Albert Einstein': return 'exploring the mysteries of the universe';
+    case 'Galileo Galilei': return 'understanding the cosmos';
+    case 'Leonardo Da Vinci': return 'discovering the secrets of nature';
+    default: return 'passion';
+  }
+}
+
 function displayMessage(sender, message) {
   const messageContainer = document.createElement('div');
   messageContainer.className = `message-container ${sender}`;
 
+  // Add label before message content:
+  let labelText = sender === 'user' ? 'User:' : selectedCharacter + ":";  
+  const label = document.createElement('span');
+  label.className = 'message-label';
+  label.textContent = labelText;
+  messageContainer.appendChild(label);
+
   const messageDiv = document.createElement('div');
   messageDiv.className = `message ${sender}`;
-  messageDiv.textContent = message;
+  messageDiv.innerHTML = marked(message);
   messageContainer.appendChild(messageDiv);
-  chatBox.appendChild(messageContainer);
 
+  chatBox.appendChild(messageContainer);
   chatBox.scrollTop = chatBox.scrollHeight; 
 }

@@ -9,6 +9,11 @@
 <body>
   <main>
     <h1>School of the Ancients</h1>
+
+    <div class="welcome-message">
+      <p>Step into a world of knowledge and wisdom. Choose a historical figure below and ask them any question that sparks your curiosity.</p>
+    </div>
+
     <div class="image-selection">
       <label class="image-choice">
         <input type="radio" name="chosen-image" value="Albert Einstein" checked>
@@ -41,19 +46,18 @@
     </div>
 
     <div class="chat-box" id="chat-box">
-      <div class="message-container system">
-        <div class="message system">Welcome to the School of the Ancients! Choose a historical figure to begin then ask a question below.</div>
-      </div> 
-    </div>
-
-    <div class="chat-input">
-      <input name="chat-message" id="chat-message" placeholder="Ask a question..." type="text" autofocus>
-      <button id="send-message">Send</button>
+      <!-- No initial system message here -->
     </div>
 
     <div class="typing-indicator" id="typing-indicator">
       <span>...</span> 
     </div> 
+
+    <div class="chat-input">
+      <input name="chat-message" id="chat-message" placeholder="Ask a question..." type="text" autofocus>
+      <button id="send-message">Send</button>
+    </div>
+    
   </main>
 
   <script type="module" src="/main.js"></script>
