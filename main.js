@@ -51,8 +51,34 @@ const characterData = {
             "How did you become so skilled in so many different areas?",
             "What are your thoughts on the nature of creativity?"
         ]
-    }
+    },
+
+    "Ada Lovelace": {
+      image: "/adalovelace.jpg", 
+      description: 'mathematician and writer',
+      timeframe: '19th century',
+      expertise: 'mathematical and computational understanding',
+      passion: 'the potential of computing machines',
+      prompts: [
+          "What were your contributions to Charles Babbage's Analytical Engine?",
+          "How did you envision the future of computing?",
+          "What is your opinion on the relationship between mathematics and creativity?"
+      ]
+  },
+  "Cleopatra": {
+      image: "/cleopatra.jpg", 
+      description: 'the last active ruler of the Ptolemaic Kingdom of Egypt',
+      timeframe: '1st century BC',
+      expertise: 'politics, diplomacy, and leadership',
+      passion: 'preserving the legacy of Egypt', 
+      prompts: [
+          "What were the major challenges you faced as ruler of Egypt?",
+          "How did you navigate the political landscape of the Roman Republic?",
+          "What is your legacy as a female ruler in the ancient world?"
+      ]
+  }
 };
+
 
 // Function to create and display image choices
 function displayImageChoices() {
