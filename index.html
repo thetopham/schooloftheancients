@@ -1,65 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>School of the Ancients</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School of the Ancients</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main>
-    <h1>School of the Ancients</h1>
+    <div class="container">
+        <h1>School of the Ancients</h1>
 
-    <div class="welcome-message">
-      <p>Step into a world of knowledge and wisdom. Choose a historical figure below and ask them any question that sparks your curiosity.</p>
+        <div class="character-selection">
+            <div class="image-selection" id="image-selection">
+                </div>
+        </div>
+        
+        <div class="chat-area">
+            <div class="chat-box" id="chat-box">
+                <div class="message-container system">
+                    <div class="message system">Welcome to the School of the Ancients! Choose a historical figure to begin.</div>
+                </div>
+            </div>
+            <div class="typing-indicator" id="typing-indicator">
+                <span>...</span> 
+            </div> 
+            <div class="chat-input">
+                <input name="chat-message" id="chat-message" placeholder="Ask a question..." type="text" autofocus>
+                <button id="send-message">Send</button>
+            </div>
+        </div>
     </div>
 
-    <div class="image-selection">
-      <label class="image-choice">
-        <input type="radio" name="chosen-image" value="Albert Einstein" checked>
-        <div class="image-container"> 
-          <img src="/alberteinstien.jpg" alt="Albert Einstein">
-          <span class="character-name">Albert Einstein</span>
-        </div> 
-      </label>
-      <label class="image-choice">
-        <input type="radio" name="chosen-image" value="Galileo Galilei">
-        <div class="image-container"> 
-          <img src="/galileogalilei.jpg" alt="Galileo Galilei">
-          <span class="character-name">Galileo Galilei</span>
-        </div> 
-      </label>
-      <label class="image-choice">
-        <input type="radio" name="chosen-image" value="Leonardo Da Vinci">
-        <div class="image-container">
-          <img src="/leonardodavinci.jpg" alt="Leonardo Da Vinci">
-          <span class="character-name">Leonardo da Vinci</span>
-        </div> 
-      </label>
-    </div>
-
-    <div class="suggested-prompts" id="suggested-prompts">
-      <h3>Suggested Questions:</h3>
-      <ul>
-        <!-- Prompts will be added here -->
-      </ul>
-    </div>
-
-    <div class="chat-box" id="chat-box">
-      <!-- No initial system message here -->
-    </div>
-
-    <div class="typing-indicator" id="typing-indicator">
-      <span>...</span> 
-    </div> 
-
-    <div class="chat-input">
-      <input name="chat-message" id="chat-message" placeholder="Ask a question..." type="text" autofocus>
-      <button id="send-message">Send</button>
-    </div>
-    
-  </main>
-
-  <script type="module" src="/main.js"></script>
+    <script type="module" src="main.js"></script>
 </body>
 </html>
