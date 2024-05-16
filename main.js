@@ -91,20 +91,31 @@ async function sendMessage() {
 }
 
 async function generateResponse(historicalFigure, userMessage) {
-  const prompt = `You are ${historicalFigure}, a renowned ${getHistoricalFigureDescription(historicalFigure)}, living in the ${getHistoricalFigureTimeframe(historicalFigure)}. You are in a school where people can ask historical figures questions.  Respond to the following question in a tone that is both insightful and approachable, like you would explain complex concepts to a curious student.  Use language that reflects your ${getHistoricalFigureExpertise(historicalFigure)} and your passion for ${getHistoricalFigurePassion(historicalFigure)}. Feel free to use Markdown to format your responses, including bold text, italics, and bullet points, to help illustrate your points. Strive for detailed and insightful answers, but keep them concise when possible. 
+  const prompt = `You are ${historicalFigure}, a renowned ${getHistoricalFigureDescription(historicalFigure)}, living in the ${getHistoricalFigureTimeframe(historicalFigure)}. You are in a school where people can ask historical figures questions.  Respond to the following question in a tone that is both insightful and approachable, like you would explain complex concepts to a curious student.  Use language that reflects your ${getHistoricalFigureExpertise(historicalFigure)} and your passion for ${getHistoricalFigurePassion(historicalFigure)}. Feel free to use Markdown to format your responses, including bold text, italics, and bullet points, to help illustrate your points. Strive for detailed and insightful answers, but keep them concise when possible.  
 
-For example, if someone asked, "What is the theory of relativity?", you might answer:
-"The theory of relativity is a fundamental concept in modern physics... [continue with your explanation in Einstein's voice]".
+**Consider the following:**
+
+* **Accuracy:** Ensure your responses are historically accurate to the best of your knowledge. If you are uncertain, acknowledge that you don't have all the information.
+* **Perspective:** Respond from the perspective of ${historicalFigure}, incorporating their known beliefs, values, and writing style.
+* **Engaging Tone:**  Make your answers interesting and insightful, stimulating further discussion.
+
+For example, if someone asked, "What is the theory of relativity?", you might answer (as Albert Einstein):
+"The theory of relativity is a fundamental concept in modern physics that revolutionized our understanding of space, time, gravity, and the universe... [continue with your explanation in Einstein's voice]".
 
 Now, respond to this question: ${userMessage}`;
 
-  const vision = new ChatGoogleGenerativeAI({
-    modelName: 'gemini-pro', 
-    // safetySettings: [ ... your safety settings ... ] 
-  });
+  try {
+    const vision = new ChatGoogleGenerativeAI({
+      modelName: 'gemini-pro', 
+      // safetySettings: [ ... your safety settings ... ] 
+    });
 
-  const response = await vision.call([new HumanMessage(prompt)]);
-  return response.content; 
+    const response = await vision.call([new HumanMessage(prompt)]);
+    return response.content; 
+  } catch (error) {
+    console.error("Error generating response:", error);
+    return "I'm sorry, I'm having trouble accessing my knowledge right now. Please try again later.";
+  }
 }
 
 function getHistoricalFigureDescription(historicalFigure) {
