@@ -30,15 +30,3 @@ dist-ssr
 .firebase
 firebase-debug.log
 *.firebase.json
-
-# Functions
-functions/node_modules
-functions/build
-functions/.eslintrc.js
-
-# Hosting
-public/
-
-# Operating System
-.DS_Store
-Thumbs.db
