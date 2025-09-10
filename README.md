@@ -1,3 +1,5 @@
+![School of the Ancients banner](schooloftheancients.png)
+
 # School of the Ancients (Web)
 
 **Talk with history’s greatest minds — web prototype (2024).**
